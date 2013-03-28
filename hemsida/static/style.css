@@ -1,0 +1,11 @@
+body 		{ background: #d1f6f6; }
+a, h1		{ color: #377BA8; }
+h1			{ font-family: 'Aria, h1, h2al', serif; margin: 0; } 
+
+
+
+.page 		{ margin: 2em auto; width: 35em; border: 2px solid #ccc;
+			  padding: 0.8em; background: white;}
+
+.metanav	{ text-align: right; font-size: 0.8em; padding: 0.3em;
+                  margin-bottom: 1em; background: #fafafa; }
