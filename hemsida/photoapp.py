@@ -1,5 +1,6 @@
 import os
-from flask import Flask, render_template, url_for, request, redirect
+from flask import Flask, render_template, url_for, request, redirect, \
+				abort, session, g, flash
 from werkzeug import secure_filename
 from flask import send_from_directory
 
@@ -45,6 +46,26 @@ def uploaded_file(filename):
 @app.route('/about')
 def about():
 	return render_template('about.html')
+
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+	error = None
+	if request.method == 'POST':
+		if request.form['username'] != app.config['USERNAME']:
+			error = 'Invalid username or password'
+		elif request.form['password'] != app.config['PASSWORD']:
+			error = 'Invalid username or password'
+		else:
+			session['logged_in'] = True
+			flash('You were logged in')
+			return redirect(url_for('upload_page'))
+	return render_template('login.html', error=error)
+
+@app.route('/logout')
+def logout():
+	session.pop('logged_in', None)
+	flash('You were logged out')
+	return redirect(url_for('index'))
 
 if __name__ == "__main__":
 	app.run(host="0.0.0.0")
